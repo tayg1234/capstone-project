@@ -257,6 +257,8 @@ def run(
                     label = names[c] if hide_conf else f"{names[c]}"
                     confidence = float(conf)
                     confidence_str = f"{confidence:.2f}"
+                    x1, y1, x2, y2 = map(int, xyxy)
+                    print(f'Detected {label} with confidence {confidence:.2f} at [{x1}, {y1}, {x2}, {y2}]')
 
                     if save_csv:
                         write_to_csv(p.name, label, confidence_str)
@@ -370,8 +372,8 @@ def parse_opt():
     parser.add_argument("--source", type=str, default=ROOT / "data/images", help="file/dir/URL/glob/screen/0(webcam)")
     parser.add_argument("--data", type=str, default=ROOT / "data/coco128.yaml", help="(optional) dataset.yaml path")
     parser.add_argument("--imgsz", "--img", "--img-size", nargs="+", type=int, default=[640], help="inference size h,w")
-    parser.add_argument("--conf-thres", type=float, default=0.25, help="confidence threshold")
-    parser.add_argument("--iou-thres", type=float, default=0.45, help="NMS IoU threshold")
+    parser.add_argument("--conf-thres", type=float, default=0.2, help="confidence threshold")
+    parser.add_argument("--iou-thres", type=float, default=0.4, help="NMS IoU threshold")
     parser.add_argument("--max-det", type=int, default=1000, help="maximum detections per image")
     parser.add_argument("--device", default="", help="cuda device, i.e. 0 or 0,1,2,3 or cpu")
     parser.add_argument("--view-img", action="store_true", help="show results")

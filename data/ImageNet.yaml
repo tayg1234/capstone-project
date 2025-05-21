@@ -154,7 +154,6 @@ names:
   135: limpkin
   136: common gallinule
   137: American coot
-  138: bustard
   139: ruddy turnstone
   140: dunlin
   141: common redshank
@@ -391,7 +390,6 @@ names:
   372: baboon
   373: macaque
   374: langur
-  375: black-and-white colobus
   376: proboscis monkey
   377: marmoset
   378: white-headed capuchin
@@ -402,7 +400,7 @@ names:
   383: ring-tailed lemur
   384: indri
   385: Asian elephant
-  386: African bush elephant
+
   387: red panda
   388: giant panda
   389: snoek
@@ -670,7 +668,7 @@ names:
   651: microwave oven
   652: military uniform
   653: milk can
-  654: minibus
+
   655: miniskirt
   656: minivan
   657: missile
@@ -795,7 +793,7 @@ names:
   776: saxophone
   777: scabbard
   778: weighing scale
-  779: school bus
+
   780: schooner
   781: scoreboard
   782: CRT screen
@@ -890,7 +888,7 @@ names:
   871: trimaran
   872: tripod
   873: triumphal arch
-  874: trolleybus
+ 
   875: trombone
   876: tub
   877: turnstile
@@ -949,7 +947,7 @@ names:
   930: baguette
   931: bagel
   932: pretzel
-  933: cheeseburger
+
   934: hot dog
   935: mashed potato
   936: cabbage
