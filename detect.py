@@ -226,6 +226,40 @@ def run(
                     writer.writeheader()
                 writer.writerow(data)
 
+        # Inference
+        with dt[1]:
+            visualize = increment_path(save_dir / Path(path).stem, mkdir=True) if visualize else False
+            if model.xml and im.shape[0] > 1:
+                pred = None
+                for image in ims:
+                    if pred is None:
+                        pred = model(image, augment=augment, visualize=visualize).unsqueeze(0)
+                    else:
+                        pred = torch.cat((pred, model(image, augment=augment, visualize=visualize).unsqueeze(0)), dim=0)
+                pred = [pred, None]
+            else:
+                pred = model(im, augment=augment, visualize=visualize)
+        # NMS
+        with dt[2]:
+            pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+
+        # Second-stage classifier (optional)
+        # pred = utils.general.apply_classifier(pred, classifier_model, im, im0s)
+
+        # Define the path for the CSV file
+        csv_path = save_dir / "predictions.csv"
+
+        # Create or append to the CSV file
+        def write_to_csv(image_name, prediction, confidence):
+            """Writes prediction data for an image to a CSV file, appending if the file exists."""
+            data = {"Image Name": image_name, "Prediction": prediction, "Confidence": confidence}
+            file_exists = os.path.isfile(csv_path)
+            with open(csv_path, mode="a", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=data.keys())
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(data)
+
         # Process predictions
         for i, det in enumerate(pred):  # per image
             seen += 1
