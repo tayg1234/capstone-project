@@ -42,7 +42,13 @@ interface SeatMapProps {
 }
 
 export function SeatMap({ restaurantId, onSeatsChange, selectedSeats = [] }: SeatMapProps) {
-  // Mock seat data - in a real app, this would come from an API
+  //실제 받을 엔드포인트
+  /*
+        const response = await axios.get(`/api/restaurants/${restaurantId}/seats`)
+        const data = response.data
+        const initialSeats = data
+        */
+  // 더미 데이터
   const initialSeats = Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
     row: String.fromCharCode(65 + Math.floor(i / 5)),
