@@ -1,5 +1,7 @@
 package com.ysay.zari_back.service;
 
+import com.ysay.zari_back.dto.MenuSimpleDto;
+import com.ysay.zari_back.dto.StoreDetailDto;
 import com.ysay.zari_back.dto.StoreRegisterDto;
 import com.ysay.zari_back.dto.StoreSimpleDto;
 import com.ysay.zari_back.entity.Store;
@@ -57,11 +59,39 @@ public class StoreService {
                 .map(store -> StoreSimpleDto.builder()
                         .storeId(store.getStoreId())
                         .storeName(store.getStoreName())
+                        .ownerId(store.getOwner().getUserId())
                         .category(store.getCategory())
                         .storeAddress(store.getStoreAddress())
                         .imageUrl(store.getImageUrl())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public StoreDetailDto getStoreDetail(Long storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 매장이 존재하지 않습니다."));
+
+        List<MenuSimpleDto> menus = store.getMenus().stream()
+                .map(menu -> MenuSimpleDto.builder()
+                        .menuId(menu.getMenuId())
+                        .name(menu.getName())
+                        .price(menu.getPrice())
+                        .imageUrl(menu.getImageUrl())
+                        .build()
+                ).collect(Collectors.toList());
+
+        return StoreDetailDto.builder()
+                .storeId(store.getStoreId())
+                .storeName(store.getStoreName())
+                .storeAddress(store.getStoreAddress())
+                .storePhone(store.getStorePhone())
+                .category(store.getCategory())
+                .latitude(store.getLatitude())
+                .longitude(store.getLongitude())
+                .ownerId(store.getOwner().getUserId())
+                .imageUrl(store.getImageUrl())
+                .menus(menus)
+                .build();
     }
 
 }

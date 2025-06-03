@@ -9,6 +9,7 @@ import lombok.Getter;
 public class StoreSimpleDto {
     private Long storeId;
     private String storeName;
+    private Long ownerId;
     private StoreCategory category;
     private String storeAddress;
     private String imageUrl;
