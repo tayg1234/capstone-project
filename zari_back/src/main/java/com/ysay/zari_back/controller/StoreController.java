@@ -1,6 +1,7 @@
 package com.ysay.zari_back.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ysay.zari_back.dto.StoreDetailDto;
 import com.ysay.zari_back.dto.StoreRegisterDto;
 import com.ysay.zari_back.dto.StoreSimpleDto;
 import com.ysay.zari_back.service.StoreService;
@@ -43,6 +44,12 @@ public class StoreController {
     public ResponseEntity<List<StoreSimpleDto>> getAllStores() {
         List<StoreSimpleDto> stores = storeService.getAllStores();
         return ResponseEntity.ok(stores);
+    }
+
+    @GetMapping("/{storeId}")
+    public ResponseEntity<StoreDetailDto> getStoreDetail(@PathVariable Long storeId) {
+        StoreDetailDto store = storeService.getStoreDetail(storeId);
+        return ResponseEntity.ok(store);
     }
 
 }

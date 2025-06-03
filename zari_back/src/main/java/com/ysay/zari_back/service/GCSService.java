@@ -40,16 +40,5 @@ public class GCSService {
         return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
     }
 
-    public String uploadBase64Image(String base64Image) {
-        try {
-            String[] parts = base64Image.split(",");
-            byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
-            String fileName = UUID.randomUUID() + "_base64.png";
-            BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, fileName).setContentType("image/png").build();
-            storage.create(blobInfo, imageBytes);
-            return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
-        } catch (Exception e) {
-            throw new RuntimeException("Base64 이미지 업로드 실패: " + e.getMessage(), e);
-        }
-    }
+
 }
